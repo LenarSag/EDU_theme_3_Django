@@ -1,7 +1,7 @@
 from django.db.models import Avg, OuterRef, Subquery, Count
 from django.shortcuts import render
 
-from rest_framework import filters, mixins, status, viewsets
+from rest_framework import filters, status, viewsets
 from rest_framework.response import Response
 
 from backend.api.permissions import ReadOrAuthenticated, ReadOrAuthenticatedOrOwner
