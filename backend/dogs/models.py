@@ -2,7 +2,16 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 from django.contrib.auth import get_user_model
 from django.db import models
 
-from backend.core.constants import MAX_VALUE_ABILITIES, MIN_VALUE_ABILITIES
+from core.constants import (
+    COLOR_MAX_LENGHT,
+    FOOD_MAX_LENGTH,
+    GENDER_MAX_LENGTH,
+    MAX_VALUE_ABILITIES,
+    MIN_VALUE_ABILITIES,
+    NAME_MAX_LENGTH,
+    SIZE_MAX_LENGTH,
+    TOY_MAX_LENGTH,
+)
 
 
 User = get_user_model()
@@ -19,8 +28,10 @@ class Breed(models.Model):
         MEDIUM = 'medium'
         LARGE = 'large'
 
-    name = models.CharField(verbose_name='Название')
-    size = models.CharField(choices=BreedSizes.choices, verbose_name='Размер')
+    name = models.CharField(max_length=NAME_MAX_LENGTH, verbose_name='Название')
+    size = models.CharField(
+        max_length=SIZE_MAX_LENGTH, choices=BreedSizes.choices, verbose_name='Размер'
+    )
     friendliness = models.PositiveSmallIntegerField(
         validators=[
             MinValueValidator(MIN_VALUE_ABILITIES),
@@ -59,7 +70,7 @@ class Breed(models.Model):
 class Dog(models.Model):
     """Модель 'Собака'."""
 
-    name = models.CharField(verbose_name='Имя')
+    name = models.CharField(max_length=NAME_MAX_LENGTH, verbose_name='Имя')
     age = models.PositiveSmallIntegerField(verbose_name='Возраст')
     breed = models.ForeignKey(
         Breed,
@@ -68,10 +79,14 @@ class Dog(models.Model):
         related_name='dogs',
         verbose_name='Порода',
     )
-    gender = models.CharField(verbose_name='Пол')
-    color = models.CharField(verbose_name='Цвет')
-    favorite_food = models.CharField(null=True, verbose_name='Любимая еда')
-    favorite_toy = models.CharField(null=True, verbose_name='Любимая игрушка')
+    gender = models.CharField(max_length=GENDER_MAX_LENGTH, verbose_name='Пол')
+    color = models.CharField(max_length=COLOR_MAX_LENGHT, verbose_name='Цвет')
+    favorite_food = models.CharField(
+        max_length=FOOD_MAX_LENGTH, null=True, verbose_name='Любимая еда'
+    )
+    favorite_toy = models.CharField(
+        max_length=TOY_MAX_LENGTH, null=True, verbose_name='Любимая игрушка'
+    )
     owner = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
