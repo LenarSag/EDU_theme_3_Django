@@ -33,5 +33,5 @@ class ReadOrAuthenticatedOrOwner(ReadOrAuthenticated):
         return (
             request.method in permissions.SAFE_METHODS
             or request.user.is_authenticated
-            and obj.author == request.user
+            and obj.owner == request.user
         )

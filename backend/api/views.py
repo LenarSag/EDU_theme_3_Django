@@ -3,7 +3,7 @@ from rest_framework import filters, status, viewsets
 from rest_framework.response import Response
 
 from api.permissions import ReadOrAuthenticated, ReadOrAuthenticatedOrOwner
-from backend.api.serializers import BreedSerializer, DogSerializer
+from api.serializers import BreedSerializer, DogSerializer
 from dogs.models import Breed, Dog
 
 
@@ -80,3 +80,15 @@ class DogViewSet(viewsets.ModelViewSet):
             )
 
         return Dog.objects.all()
+
+    def perform_create(self, serializer):
+        """Сохраняет экземпляр сериализатора с текущим пользователем в качестве владельца.
+
+        Аргументы:
+            serializer (Serializer): Экземпляр сериализатора, содержащий
+                проверенные данные для создаваемого объекта.
+
+        Возвращает:
+            None
+        """
+        serializer.save(owner=self.request.user)

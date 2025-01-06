@@ -6,7 +6,9 @@ from core.constants import (
     COLOR_MAX_LENGHT,
     FOOD_MAX_LENGTH,
     GENDER_MAX_LENGTH,
+    MAX_AGE,
     MAX_VALUE_ABILITIES,
+    MIN_AGE,
     MIN_VALUE_ABILITIES,
     NAME_MAX_LENGTH,
     SIZE_MAX_LENGTH,
@@ -28,7 +30,9 @@ class Breed(models.Model):
         MEDIUM = 'medium'
         LARGE = 'large'
 
-    name = models.CharField(max_length=NAME_MAX_LENGTH, verbose_name='Название')
+    name = models.CharField(
+        max_length=NAME_MAX_LENGTH, unique=True, verbose_name='Название'
+    )
     size = models.CharField(
         max_length=SIZE_MAX_LENGTH, choices=BreedSizes.choices, verbose_name='Размер'
     )
@@ -71,7 +75,10 @@ class Dog(models.Model):
     """Модель 'Собака'."""
 
     name = models.CharField(max_length=NAME_MAX_LENGTH, verbose_name='Имя')
-    age = models.PositiveSmallIntegerField(verbose_name='Возраст')
+    age = models.PositiveSmallIntegerField(
+        validators=[MinValueValidator(MIN_AGE), MaxValueValidator(MAX_AGE)],
+        verbose_name='Возраст',
+    )
     breed = models.ForeignKey(
         Breed,
         on_delete=models.SET_NULL,
