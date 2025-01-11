@@ -7,7 +7,14 @@
 ---
 
 ## Установка и запуск проекта
-### Шаг 1: Создайте файл `.env`
+
+### Шаг 1: Клонируйте репозиторий:
+
+   ```bash
+   git clone https://github.com/LenarSag/EDU_theme_3_Django
+   cd EDU_theme_3_Django
+   ```
+### Шаг 2: Создайте файл `.env`
 Добавьте переменные окружения в файл `.env`:
 ```
 POSTGRES_DB=your_db_name
@@ -20,7 +27,7 @@ DEBUG=True
 ALLOWED_HOSTS=*
 ```
 
-### Шаг 2: Соберите и запустите контейнеры с помощью Docker
+### Шаг 3: Соберите и запустите контейнеры с помощью Docker
 ```bash
 docker-compose up --build
 ```
