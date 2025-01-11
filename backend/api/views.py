@@ -1,6 +1,5 @@
 from django.db.models import Avg, OuterRef, Subquery, Count
-from rest_framework import filters, status, viewsets
-from rest_framework.response import Response
+from rest_framework import viewsets
 
 from api.permissions import ReadOrAuthenticated, ReadOrAuthenticatedOrOwner
 from api.serializers import BreedSerializer, DogSerializer
